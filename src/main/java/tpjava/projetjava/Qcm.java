@@ -3,11 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tpjava.projetjava;
+import javax.swing.*;
 
 /**
  *
- * @author
+ * @author 
  */
 public class Qcm {
+    public JPanel AnswerPanel;
     
 }

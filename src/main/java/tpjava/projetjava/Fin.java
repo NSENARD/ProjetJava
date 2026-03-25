@@ -12,4 +12,5 @@ public class Fin {
     private String ImagePath;
     private String Prompt;
     
+
 }

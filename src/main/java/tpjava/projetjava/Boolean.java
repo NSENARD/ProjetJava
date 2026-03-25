@@ -4,10 +4,13 @@
  */
 package tpjava.projetjava;
 
+import javax.swing.*;
+
 /**
  *
  * @author 
  */
 public class Boolean {
+    public JPanel AnswerPanel;
     
 }
