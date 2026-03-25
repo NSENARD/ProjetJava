@@ -14,7 +14,7 @@ public class Scenario {
 
     private Puzzle actualPuzzle;
     private HashMap<String, String> manifest;
-    
+        
     public Scenario() {
         manifest = new HashMap<>();
     }
