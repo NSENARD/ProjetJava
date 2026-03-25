@@ -1,4 +1,7 @@
-
+/**
+ *
+ * @author angele
+ */
 package tpjava.projetjava;
 
 public abstract class Puzzle {
