@@ -9,7 +9,16 @@ import javax.swing.*;
  *
  * @author 
  */
-public class Text {
+public class Text extends Puzzle{
     public JPanel AnswerPanel;
+
+    public Text(String imagePath, String prompt) {
+        super(imagePath, prompt);
+    }
+
+    @Override
+    public String getAnswer() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

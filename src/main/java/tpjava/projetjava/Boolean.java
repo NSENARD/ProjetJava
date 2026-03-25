@@ -10,7 +10,16 @@ import javax.swing.*;
  *
  * @author 
  */
-public class Boolean {
+public class Boolean extends Puzzle{
     public JPanel AnswerPanel;
+
+    public Boolean(String imagePath, String prompt) {
+        super(imagePath, prompt);
+    }
+
+    @Override
+    public String getAnswer() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
