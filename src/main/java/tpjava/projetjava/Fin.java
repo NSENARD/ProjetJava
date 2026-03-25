@@ -6,8 +6,10 @@ package tpjava.projetjava;
 
 /**
  *
- * @author 
+ * @author Maiwen
  */
 public class Fin {
+    private String ImagePath;
+    private String Prompt;
     
 }
