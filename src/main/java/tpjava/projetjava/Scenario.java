@@ -8,6 +8,7 @@ package tpjava.projetjava;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
+import com.google.gson.Gson;
 
 
 /**
@@ -21,7 +22,7 @@ public class Scenario {
     private HashMap<String, HashMap<String,String>> PuzzleBodies;
     private HashMap<String, HashMap<String,String>> PuzzleRoutes;
     private HashMap<String,String[]> PuzzleQcmChoices;
-
+    
     
         
     public Scenario() {
