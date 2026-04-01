@@ -2,14 +2,15 @@ package tpjava.projetjava;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class Text extends Puzzle {
 
     public JPanel AnswerPanel;
     private JTextField textField;
 
-    public Text(String imagePath, String prompt) {
-        super(imagePath, prompt);
+    public Text(String imagePath, String prompt, HashMap<String, String> routes) {
+        super(imagePath, prompt, routes);
 
         AnswerPanel = new JPanel();
         AnswerPanel.setLayout(new BorderLayout());
