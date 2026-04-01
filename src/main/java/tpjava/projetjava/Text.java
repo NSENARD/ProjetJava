@@ -1,24 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tpjava.projetjava;
-import javax.swing.*;
 
-/**
- *
- * @author 
- */
-public class Text extends Puzzle{
+import javax.swing.*;
+import java.awt.*;
+
+public class Text extends Puzzle {
+
     public JPanel AnswerPanel;
+    private JTextField textField;
 
     public Text(String imagePath, String prompt) {
         super(imagePath, prompt);
+
+        AnswerPanel = new JPanel();
+        AnswerPanel.setLayout(new BorderLayout());
+
+        textField = new JTextField();
+        AnswerPanel.add(textField, BorderLayout.CENTER);
+    }
+
+    public String getValue() {
+        return textField.getText().trim();
     }
 
     @Override
     public String getAnswer() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return getValue();
     }
-    
+
+    public String traite() {
+        String v = getValue();
+
+        if (routes.containsKey(v)) {
+            return routes.get(v);
+        } else {
+            return routes.get("*");
+        }
+    }
 }
