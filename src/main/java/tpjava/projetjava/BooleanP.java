@@ -4,13 +4,14 @@
  */
 package tpjava.projetjava;
 
+import java.awt.FlowLayout;
 import javax.swing.*;
 
 /**
  *
  * @author 
  */
-public class Boolean extends Puzzle{
+public class BooleanP extends Puzzle{
     public JPanel AnswerPanel;
 
     public Boolean(String imagePath, String prompt) {
@@ -21,5 +22,7 @@ public class Boolean extends Puzzle{
     public String getAnswer() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
     
 }
