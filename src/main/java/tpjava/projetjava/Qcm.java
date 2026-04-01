@@ -12,9 +12,11 @@ import javax.swing.*;
  */
 public class Qcm extends Puzzle{
     public JPanel AnswerPanel;
+    public String[] choices;
 
-    public Qcm(String imagePath, String prompt,HashMap<String, String> routes) {
+    public Qcm(String imagePath, String prompt,HashMap<String, String> routes,String[] choices) {
         super(imagePath, prompt,routes);
+        this.choices=choices;
     }
 
     @Override

@@ -5,6 +5,7 @@
 package tpjava.projetjava;
 
 import java.awt.FlowLayout;
+import java.util.HashMap;
 import javax.swing.*;
 
 /**
@@ -14,8 +15,8 @@ import javax.swing.*;
 public class BooleanP extends Puzzle{
     public JPanel AnswerPanel;
 
-    public Boolean(String imagePath, String prompt) {
-        super(imagePath, prompt);
+    public BooleanP(String imagePath, String prompt, HashMap<String, String> routes){
+        super(imagePath, prompt,routes);
     }
 
     @Override
