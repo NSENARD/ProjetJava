@@ -25,10 +25,8 @@ public class Text extends Puzzle {
 
     @Override
     public String getAnswer() {
-        return getValue();
-    }
-
-    public String traite() {
+        
+        
         String v = getValue();
 
         if (routes.containsKey(v)) {
@@ -37,4 +35,7 @@ public class Text extends Puzzle {
             return routes.get("*");
         }
     }
-}
+
+    
+       
+    }
