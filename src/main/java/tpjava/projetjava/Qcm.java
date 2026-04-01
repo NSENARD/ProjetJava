@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tpjava.projetjava;
+import java.util.HashMap;
 import javax.swing.*;
 
 /**
@@ -12,8 +13,8 @@ import javax.swing.*;
 public class Qcm extends Puzzle{
     public JPanel AnswerPanel;
 
-    public Qcm(String imagePath, String prompt) {
-        super(imagePath, prompt);
+    public Qcm(String imagePath, String prompt,HashMap<String, String> routes) {
+        super(imagePath, prompt,routes);
     }
 
     @Override

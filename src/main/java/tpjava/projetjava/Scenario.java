@@ -4,6 +4,7 @@
  */
 package tpjava.projetjava;
 
+
 import java.util.*;
 
 /**
@@ -12,8 +13,10 @@ import java.util.*;
  */
 public class Scenario {
 
-    private Puzzle actualPuzzle;
-    private HashMap<String, String> manifest;
+    private Puzzle CurrentPuzzle;
+    private HashMap<String, String> PuzzleBodies;
+    private HashMap<String, HashMap<String,String>> PuzzleRoutes;
+    private HashMap<String,String[]> PuzzleQcmChoices;
         
     public Scenario() {
         manifest = new HashMap<>();
@@ -34,17 +37,19 @@ public class Scenario {
             System.out.println("Aucun puzzle sélectionné.");
         }
     }
-
-    public Puzzle getActualPuzzle() {
-        return actualPuzzle;
+    public changePuzzle(String PuzzleName){
+        switch(PuzzleBodies.get(PuzzleName)){
+            case "qcm":
+                CurrentPuzzle= new Qcm();
+                break;
+            case "text":
+                CurrentPuzzle= new Text();
+                break;
+            case "boolean":
+                CurrentPuzzle= new BooleanP();
+                break;
+        }
+        
     }
 
-    public void setActualPuzzle(Puzzle actualPuzzle) {
-        this.actualPuzzle = actualPuzzle;
-    }
-
-    public HashMap<String, String> getManifest() {
-        return manifest;
-    }
-    
 }
