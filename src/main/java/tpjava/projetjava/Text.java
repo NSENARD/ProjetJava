@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 public class Text extends Puzzle {
 
-    public JPanel AnswerPanel;
     private JTextField textField;
 
     public Text(String imagePath, String prompt, HashMap<String, String> routes) {

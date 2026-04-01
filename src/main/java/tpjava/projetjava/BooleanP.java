@@ -13,7 +13,6 @@ import javax.swing.*;
  * @author Maïwen
  */
 public class BooleanP extends Puzzle{
-    public JPanel AnswerPanel;
     
     private JLabel label;
     private JRadioButton vrai;

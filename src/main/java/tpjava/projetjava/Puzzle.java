@@ -5,8 +5,10 @@
 package tpjava.projetjava;
 
 import java.util.HashMap;
+import javax.swing.JPanel;
 
 public abstract class Puzzle {
+    protected JPanel AnswerPanel;
     protected String imagePath;
     protected String prompt;
     protected HashMap<String, String> routes;
