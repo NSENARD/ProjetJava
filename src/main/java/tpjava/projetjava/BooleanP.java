@@ -5,11 +5,12 @@
 package tpjava.projetjava;
 
 import java.awt.FlowLayout;
+import java.util.HashMap;
 import javax.swing.*;
 
 /**
  *
- * @author 
+ * @author Maïwen
  */
 public class BooleanP extends Puzzle{
     public JPanel AnswerPanel;
@@ -19,9 +20,8 @@ public class BooleanP extends Puzzle{
     private JRadioButton faux;
     private ButtonGroup group;
 
-    public BooleanP(String imagePath, String prompt) {
-        super(imagePath, prompt);
-        setup();
+    public BooleanP(String imagePath, String prompt, HashMap<String, String> routes){
+        super(imagePath, prompt,routes);
     }
 
     private void setup() {

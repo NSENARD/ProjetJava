@@ -5,21 +5,29 @@
 package tpjava.projetjava;
 
 
+import java.awt.*;
 import java.util.*;
+import javax.swing.*;
+
 
 /**
  *
- * @author Maiwen
+ * @author Maiwen, Noé
  */
 public class Scenario {
-
+    
     private Puzzle CurrentPuzzle;
-    private HashMap<String, String> PuzzleBodies;
+    private String start;
+    private HashMap<String, HashMap<String,String>> PuzzleBodies;
     private HashMap<String, HashMap<String,String>> PuzzleRoutes;
     private HashMap<String,String[]> PuzzleQcmChoices;
+
+    
         
     public Scenario() {
-        manifest = new HashMap<>();
+        //ManifestLector();
+        changePuzzle(start);
+        
     }
     
     public void ManifestLector(String nomFich){
@@ -28,27 +36,27 @@ public class Scenario {
     }
     
     public void printPuzzle() {
-        if (actualPuzzle != null) {
-            /*lance le puzzle*/
-            System.out.println(actualPuzzle);
-            
-        } else {
-            /*lance pas le puzzle*/
-            System.out.println("Aucun puzzle sélectionné.");
-        }
+        var PrincipalPanel=new JPanel(new GridLayout(4,1));
+        
+        
+        
     }
-    public changePuzzle(String PuzzleName){
-        switch(PuzzleBodies.get(PuzzleName)){
+    public void changePuzzle(String PuzzleName){
+        var PuzzleBody=PuzzleBodies.get(PuzzleName);
+        var routes=PuzzleRoutes.get(PuzzleName);
+        switch(PuzzleBody.get("type")){
             case "qcm":
-                CurrentPuzzle= new Qcm();
+                var choices=PuzzleQcmChoices.get(PuzzleName);
+                CurrentPuzzle= new Qcm(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes,choices);
                 break;
             case "text":
-                CurrentPuzzle= new Text();
+                CurrentPuzzle= new Text(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
                 break;
             case "boolean":
-                CurrentPuzzle= new BooleanP();
+                CurrentPuzzle= new BooleanP(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
                 break;
         }
+        printPuzzle();
         
     }
 
