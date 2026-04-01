@@ -48,10 +48,11 @@ public class BooleanP extends Puzzle{
     @Override
     public String getAnswer() {
         String Answer;
-        Answer="null";
         if (vrai.isSelected()) Answer= "true";
         if (faux.isSelected()) Answer= "false";
+        else return null;
         return routes.get(Answer);
+        
     }
     
 }
