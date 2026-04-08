@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 
 /**
  *
- * @author Maiwen, Noé
+ * @author Noé
  */
 public class Scenario {
     
@@ -39,7 +39,6 @@ public class Scenario {
         PuzzleRoutes=new HashMap();
         PuzzleQcmChoices=new HashMap();
         ManifestLector("C:\\Users\\senar\\OneDrive\\Documents\\bureau-professeur-blob");
-        System.out.println("LUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUu");
         System.out.println(start);
         System.out.println(PuzzleBodies);
         System.out.println(PuzzleQcmChoices);

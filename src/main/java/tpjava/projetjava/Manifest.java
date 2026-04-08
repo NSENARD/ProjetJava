@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author senar
+ * @author Noé
  */
 public class Manifest {
     private int schemaVersion;
