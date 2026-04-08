@@ -4,14 +4,15 @@
 
 package tpjava.projetjava;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author senar
  */
 public class ProjetJAVA {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-
+    public static void main(String[] args) throws FileNotFoundException {
+        Scenario s1=new Scenario();
     }
 }
