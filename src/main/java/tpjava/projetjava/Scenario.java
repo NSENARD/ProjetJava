@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.Reader;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
+import java.io.File;
 
 
 
@@ -34,22 +35,19 @@ public class Scenario {
     
     
         
-    public Scenario() throws FileNotFoundException {
+    public Scenario(File f) throws FileNotFoundException {
         PuzzleBodies=new HashMap();
         PuzzleRoutes=new HashMap();
         PuzzleQcmChoices=new HashMap();
-        ManifestLector("C:\\Users\\senar\\OneDrive\\Documents\\bureau-professeur-blob");
-        System.out.println("LUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUu");
+        ManifestLector(f.toString());
         System.out.println(start);
         System.out.println(PuzzleBodies);
         System.out.println(PuzzleQcmChoices);
         System.out.println(PuzzleRoutes);
-        changePuzzle(start);
-        
-    }
+        changePuzzle(start);   
+     }
     
     public void ManifestLector(String nomDossier) throws FileNotFoundException{ // IA !!!
-            Gson gson = new Gson();
             try {   
             JsonParser parser = new JsonParser();
             JsonObject root = parser.parse(new FileReader(nomDossier+"\\manifest.json")).getAsJsonObject();
@@ -73,8 +71,6 @@ public class Scenario {
                 infos.put("image", puzzle.get("image").getAsString());
 
             PuzzleBodies.put(nomPuzzle, infos);
-
-
 
             HashMap<String, String> routes = new HashMap<>();
 
@@ -106,14 +102,14 @@ public class Scenario {
     
 }
         
-    
-    
     public void printPuzzle() {
         var PrincipalPanel=new JPanel(new GridLayout(4,1));
         
         
         
     }
+    
+    
     public void changePuzzle(String PuzzleName){
         var PuzzleBody=PuzzleBodies.get(PuzzleName);
         var routes=PuzzleRoutes.get(PuzzleName);
