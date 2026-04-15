@@ -27,5 +27,9 @@ public abstract class Puzzle {
         return prompt;
     }
 
+    public JPanel getAnswerPanel() {
+        return AnswerPanel;
+    }
+
     public abstract String getAnswer();
 }

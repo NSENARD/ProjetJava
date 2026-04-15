@@ -40,10 +40,6 @@ public class Scenario {
         PuzzleRoutes=new HashMap();
         PuzzleQcmChoices=new HashMap();
         ManifestLector(f.toString());
-        System.out.println(start);
-        System.out.println(PuzzleBodies);
-        System.out.println(PuzzleQcmChoices);
-        System.out.println(PuzzleRoutes);
         changePuzzle(start);   
      }
     
@@ -111,11 +107,16 @@ public class Scenario {
     
     
     public void changePuzzle(String PuzzleName){
+        
+        
         var PuzzleBody=PuzzleBodies.get(PuzzleName);
         var routes=PuzzleRoutes.get(PuzzleName);
+        System.out.println(PuzzleName);
+        System.out.println(PuzzleBodies.get(PuzzleName));
         switch(PuzzleBody.get("type")){
             case "qcm":
                 var choices=PuzzleQcmChoices.get(PuzzleName);
+                System.out.println(PuzzleName);
                 CurrentPuzzle= new Qcm(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes,choices);
                 break;
             case "text":

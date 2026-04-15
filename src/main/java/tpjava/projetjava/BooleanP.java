@@ -21,6 +21,7 @@ public class BooleanP extends Puzzle{
 
     public BooleanP(String imagePath, String prompt, HashMap<String, String> routes){
         super(imagePath, prompt,routes);
+        setup();
     }
 
     private void setup() {
@@ -47,11 +48,10 @@ public class BooleanP extends Puzzle{
     
     @Override
     public String getAnswer() {
-        String Answer;
-        if (vrai.isSelected()) Answer= "true";
-        if (faux.isSelected()) Answer= "false";
+
+        if (vrai.isSelected()) return routes.get("true");
+        if (faux.isSelected()) return routes.get("false");
         else return null;
-        return routes.get(Answer);
         
     }
     
