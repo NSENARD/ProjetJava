@@ -1,0 +1,75 @@
+{
+    "name": "Maiwen"
+}
+{
+    "schemaVersion": 1,
+    "id": "le_temple_maudit",
+    "title": "Le temple maudit",
+    "author": "Noe, Angele, Maiwen",
+    "start": "p1",
+    "puzzles": {
+        "p1": {
+            "type": "boolean",
+            "prompt": "Tu as été enfermé dans une pyramide, pour en sortir une seule solution, résoudres les énigmes ! C'est parti ?",
+            "image": "images/artefact.png",
+            "choices": [
+                "OUI !!!",
+                "Non je vais attendre les secours et rien faire"
+            ],
+            "routes": {
+                "OUI !!!": "p2",
+                "Non je vais attendre les secours et rien faire": "end_lose"
+            }
+        },
+        "p2": {
+            "type": "boolean",
+            "prompt": "Il y a 17 artefacts. Tous sont faux sauf 9. Il lui y en a donc 8 vrai ?",
+            "image": "images/artefact.png",
+            "routes": {
+                "true": "p2",
+                "false": "p3"
+            }
+        },
+        "p3": {
+            "type": "qcm",
+            "prompt": "Une des étageres se met à briller, Il y a 3 vases, l’un contient de l’eau, l’autre du poison et le dernier est vide. Le vase d’eau n’est pas celui de droite, celui de poison n’est pas au milieu, Les vase à gauche et à droite sont aussi lourds.",
+            "image": "images/vase.png",
+            "choices": [
+                "Vase de gauche",
+                "Vase du milieu",
+                "Vase de droite"
+            ],
+            "routes": {
+                "Vase de gauche": "p3",
+                "Vase de droite": "p4",
+                "Vase du milieu": "p3"
+            }
+        },
+        "p4": {
+            "type": "text",
+            "prompt": "Sur un mur apparait cette suite de symboles numériques : 1, 11, 21, 1211... Quel est le nombre suivant ?",
+            "image": "images/mur.png",
+            "routes": {
+                "*": "p5",
+                "111221": "p4"
+            }
+        },
+        "p5": {
+            "type": "qcm",
+            "prompt": "Une statue sort du sol. Je n'ai pas de voix, mais je te réponds. Je n'ai pas de corps, mais je bouge avec toi. Plus la lumière est forte, plus je suis présent. Pourtant, si tu fermes les yeux, je n'existe plus.",
+            "image": "images/coffre.png",
+            "choices": [
+                "Une bougie",
+                "Ton ombre",
+                "Un miroir",
+                "De l'eau"
+            ],
+            "routes": {
+                "Une bougie": "p5",
+                "Ton ombre": "end_win",
+                "Un miroir": "p5",
+                "De l'eau": "P5"
+            }
+        }
+    }
+}

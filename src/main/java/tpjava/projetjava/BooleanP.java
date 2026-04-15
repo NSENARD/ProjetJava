@@ -10,7 +10,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Maïwen
+ * @author Maiwen
  */
 public class BooleanP extends Puzzle{
     

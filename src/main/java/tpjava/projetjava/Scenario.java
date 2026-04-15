@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 
 /**
  *
- * @author Noé
+ * @author Noe
  */
 public class Scenario {
     

@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 
 /**
  *
- * @author senar
+ * @author Noe
  */
 public class ProjetJAVA {
 

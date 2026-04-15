@@ -9,7 +9,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Maïwen
+ * @author Maiwen
  */
 public class Qcm extends Puzzle{
     public String[] choices;
