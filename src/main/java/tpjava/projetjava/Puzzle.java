@@ -1,6 +1,6 @@
 /**
  *
- * @author angele
+ * @author Angele
  */
 package tpjava.projetjava;
 
