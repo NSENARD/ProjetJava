@@ -12,10 +12,7 @@
             "type": "boolean",
             "prompt": "Tu as été enfermé dans une pyramide, pour en sortir une seule solution, résoudres les énigmes ! C'est parti ?",
             "image": "images/artefact.png",
-            "choices": [
-                "OUI !!!",
-                "Non je vais attendre les secours et rien faire"
-            ],
+            "choices": ["OUI !!!", "Non je vais attendre les secours et rien faire"],
             "routes": {
                 "OUI !!!": "p2",
                 "Non je vais attendre les secours et rien faire": "end_lose"
@@ -26,50 +23,105 @@
             "prompt": "Il y a 17 artefacts. Tous sont faux sauf 9. Il lui y en a donc 8 vrai ?",
             "image": "images/artefact.png",
             "routes": {
-                "true": "p2",
-                "false": "p3"
+                "true": "p3",
+                "false": "p2_retry"
             }
+        },
+        "p2_retry": {
+            "type": "boolean",
+            "prompt": "Mauvaise réponse ! Veux-tu un indice pour continuer ?",
+            "image": "images/erreur.png",
+            "choices": ["Oui, aide-moi", "Non, je quitte"],
+            "routes": {
+                "Oui, aide-moi": "p2_hint",
+                "Non, je quitte": "end_lose"
+            }
+        },
+        "p2_hint": {
+            "type": "boolean",
+            "prompt": "INDICE : Si on te dit 'Tous sont faux SAUF 9', cela veut dire que le nombre de vrais est écrit dans la phrase ! On recommence ?",
+            "image": "images/indice.png",
+            "routes": { "true": "p2" }
         },
         "p3": {
             "type": "qcm",
             "prompt": "Une des étageres se met à briller, Il y a 3 vases, l’un contient de l’eau, l’autre du poison et le dernier est vide. Le vase d’eau n’est pas celui de droite, celui de poison n’est pas au milieu, Les vase à gauche et à droite sont aussi lourds.",
             "image": "images/vase.png",
-            "choices": [
-                "Vase de gauche",
-                "Vase du milieu",
-                "Vase de droite"
-            ],
+            "choices": ["Vase de gauche", "Vase du milieu", "Vase de droite"],
             "routes": {
-                "Vase de gauche": "p3",
                 "Vase de droite": "p4",
-                "Vase du milieu": "p3"
+                "Vase de gauche": "p3_retry",
+                "Vase du milieu": "p3_retry"
             }
+        },
+        "p3_retry": {
+            "type": "boolean",
+            "prompt": "Ce n'est pas le bon vase... Veux-tu un indice ?",
+            "image": "images/erreur.png",
+            "choices": ["Donne l'indice", "Abandonner"],
+            "routes": {
+                "Donne l'indice": "p3_hint",
+                "Abandonner": "end_lose"
+            }
+        },
+        "p3_hint": {
+            "type": "boolean",
+            "prompt": "INDICE : Si le vase de gauche et celui de droite ont le même poids, c'est que le vide est au milieu. Réessaie !",
+            "image": "images/indice.png",
+            "routes": { "true": "p3" }
         },
         "p4": {
             "type": "text",
             "prompt": "Sur un mur apparait cette suite de symboles numériques : 1, 11, 21, 1211... Quel est le nombre suivant ?",
             "image": "images/mur.png",
             "routes": {
-                "*": "p5",
-                "111221": "p4"
+                "111221": "p5",
+                "*": "p4_retry"
             }
+        },
+        "p4_retry": {
+            "type": "boolean",
+            "prompt": "Le mur tremble, ce n'est pas ça ! Continuer avec un indice ?",
+            "image": "images/erreur.png",
+            "choices": ["Oui", "Non"],
+            "routes": {
+                "Oui": "p4_hint",
+                "Non": "end_lose"
+            }
+        },
+        "p4_hint": {
+            "type": "boolean",
+            "prompt": "INDICE : Lis les chiffres à voix haute. '1' se lit 'un 1' et '11' se lit 'deux 1'. C'est une suite de lecture !",
+            "image": "images/indice.png",
+            "routes": { "true": "p4" }
         },
         "p5": {
             "type": "qcm",
             "prompt": "Une statue sort du sol. Je n'ai pas de voix, mais je te réponds. Je n'ai pas de corps, mais je bouge avec toi. Plus la lumière est forte, plus je suis présent. Pourtant, si tu fermes les yeux, je n'existe plus.",
             "image": "images/coffre.png",
-            "choices": [
-                "Une bougie",
-                "Ton ombre",
-                "Un miroir",
-                "De l'eau"
-            ],
+            "choices": ["Une bougie", "Ton ombre", "Un miroir", "De l'eau"],
             "routes": {
-                "Une bougie": "p5",
                 "Ton ombre": "end_win",
-                "Un miroir": "p5",
-                "De l'eau": "P5"
+                "Une bougie": "p5_retry",
+                "Un miroir": "p5_retry",
+                "De l'eau": "p5_retry"
             }
+        },
+        "p5_retry": {
+            "type": "boolean",
+            "prompt": "La statue reste silencieuse... Un indice ?",
+            "image": "images/erreur.png",
+            "choices": ["Oui", "Non"],
+            "routes": {
+                "Oui": "p5_hint",
+                "Non": "end_lose"
+            }
+        },
+        "p5_hint": {
+            "type": "boolean",
+            "prompt": "INDICE : Elle te suit partout quand il y a du soleil, mais disparaît dans le noir complet.",
+            "image": "images/indice.png",
+            "routes": { "true": "p5" }
         }
     }
 }
