@@ -21,13 +21,14 @@ public class Qcm extends Puzzle{
     public Qcm(String imagePath, String prompt,HashMap<String, String> routes,String[] choices) {
         super(imagePath, prompt,routes);
         this.choices=choices;
+        setup();
     }
     
     private void setup() {
         // 1. Initialisation du panel
         AnswerPanel = new JPanel();
         AnswerPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
-        
+        System.out.println(choices[1]);
         group = new ButtonGroup();
         
         // 2. Création dynamique des boutons selon le tableau 'choices'
@@ -48,9 +49,14 @@ public class Qcm extends Puzzle{
         // On parcourt les boutons pour trouver celui qui est sélectionné
         for (JRadioButton rb : radioButtons) {
             if (rb.isSelected()) {
-                return routes.get(rb);
+                return routes.get(rb.getText());
             }
         }
         return null; // Rien n'est sélectionné
     }
+
+    public String[] getChoices() {
+        return choices;
+    }
+    
 }

@@ -6,6 +6,7 @@ package tpjava.projetjava;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.FileSystems;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.*;
 
@@ -15,15 +16,17 @@ import javax.swing.*;
  */
 public class Home extends JFrame{
     
+    private Scenario scenario;
+    
     public Home() throws FileNotFoundException{
         super("Home");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(500,800);
-        Scenario scenario=new Scenario(FileChooser());
+        scenario=new Scenario(FileChooser());
         build();
         this.setVisible(true);  
     }
-    private File FileChooser(){
+    private File FileChooser() throws FileNotFoundException{//trouvé sur internet
         JFileChooser choose = new JFileChooser(
         FileSystemView
         .getFileSystemView()
@@ -40,7 +43,7 @@ public class Home extends JFrame{
         return choose.getSelectedFile();
       }
     } 
-    return null;
+    throw new FileNotFoundException();
     
     
     }
@@ -48,10 +51,21 @@ public class Home extends JFrame{
     private void build() {
         var PrincipalPanel=new JPanel(new GridLayout(4,1));
         var ValiderBtn=new JButton("Valider");
-        var prompt=new JLabel(Scenario.getCurrentPuzzle().getPrompt());
-        var Image= new ImageIcon(Scenario.getCurrentPuzzle().getImagePath());
+        ValiderBtn.addActionListener(e->{
+            try{scenario.changePuzzle(scenario.getCurrentPuzzle().getAnswer());}
+            catch(Exception exception){System.out.println("erreur");}
+            PrincipalPanel.removeAll();
+            build();
+            this.setVisible(true);
+        });
+        var prompt=new JLabel(scenario.getCurrentPuzzle().getPrompt());
+        var Image= new ImageIcon(scenario.getCurrentPuzzle().getImagePath());
+        var AnswerPanel= scenario.getCurrentPuzzle().getAnswerPanel();
         PrincipalPanel.add(new JLabel(Image));
         PrincipalPanel.add(prompt);
+        PrincipalPanel.add(AnswerPanel);
+        PrincipalPanel.add(ValiderBtn);
+        this.add(PrincipalPanel);
         
     }
     

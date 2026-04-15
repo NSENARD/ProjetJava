@@ -32,7 +32,7 @@ public class Text extends Puzzle {
         
         
         String v = getValue();
-
+        System.out.println(v);
         if (routes.containsKey(v)) {
             return routes.get(v);
         } else {
