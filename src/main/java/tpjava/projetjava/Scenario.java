@@ -23,7 +23,7 @@ import java.io.File;
 
 /**
  *
- * @author Noé
+ * @author Noe
  */
 public class Scenario {
     
