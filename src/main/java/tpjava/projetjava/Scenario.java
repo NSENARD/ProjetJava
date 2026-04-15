@@ -129,4 +129,8 @@ public class Scenario {
         
     }
 
+    public Puzzle getCurrentPuzzle() {
+        return CurrentPuzzle;
+    }
+
 }

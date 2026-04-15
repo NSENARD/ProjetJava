@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tpjava.projetjava;
+import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import javax.swing.filechooser.FileSystemView;
@@ -18,11 +19,11 @@ public class Home extends JFrame{
         super("Home");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(500,800);
-        Scenario scenario=new Scenario(build());
-        
+        Scenario scenario=new Scenario(FileChooser());
+        build();
         this.setVisible(true);  
     }
-    private File build(){
+    private File FileChooser(){
         JFileChooser choose = new JFileChooser(
         FileSystemView
         .getFileSystemView()
@@ -42,6 +43,16 @@ public class Home extends JFrame{
     return null;
     
     
+    }
+
+    private void build() {
+        var PrincipalPanel=new JPanel(new GridLayout(4,1));
+        var ValiderBtn=new JButton("Valider");
+        var prompt=new JLabel(Scenario.getCurrentPuzzle().getPrompt());
+        var Image= new ImageIcon(Scenario.getCurrentPuzzle().getImagePath());
+        PrincipalPanel.add(new JLabel(Image));
+        PrincipalPanel.add(prompt);
+        
     }
     
 }
