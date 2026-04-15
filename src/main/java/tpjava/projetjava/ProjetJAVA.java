@@ -13,6 +13,6 @@ import java.io.FileNotFoundException;
 public class ProjetJAVA {
 
     public static void main(String[] args) throws FileNotFoundException {
-        Scenario s1=new Scenario();
+        var h=new Home();
     }
 }
