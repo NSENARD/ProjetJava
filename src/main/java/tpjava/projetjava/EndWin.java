@@ -13,6 +13,7 @@ public class EndWin extends Puzzle {
         super(image, prompt, routes);
     }
 
+
     public void afficher() {
         System.out.println("Victoire !");
         System.out.println(prompt);

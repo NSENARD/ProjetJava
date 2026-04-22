@@ -15,7 +15,7 @@
             "choices": ["OUI !!!", "Non je vais attendre les secours et rien faire"],
             "routes": {
                 "OUI !!!": "p2",
-                "Non je vais attendre les secours et rien faire": "End_lose"
+                "Non je vais attendre les secours et rien faire": "EndLose"
             }
         },
         "p2": {
@@ -34,7 +34,7 @@
             "choices": ["Oui, aide-moi", "Non, je quitte"],
             "routes": {
                 "Oui, aide-moi": "p2_hint",
-                "Non, je quitte": "End_lose"
+                "Non, je quitte": "EndLose"
             }
         },
         "p2_hint": {
