@@ -126,9 +126,9 @@ public class Scenario {
                 CurrentPuzzle= new BooleanP(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
                 break;
             case "end_win":
-                CurrentPuzzle= new end_win;
+                CurrentPuzzle= new End_win;
             case "end_lose":
-                CurrentPuzzle= new end_lose;
+                CurrentPuzzle= new End_lose;
         }
         printPuzzle();
         

@@ -15,7 +15,7 @@
             "choices": ["OUI !!!", "Non je vais attendre les secours et rien faire"],
             "routes": {
                 "OUI !!!": "p2",
-                "Non je vais attendre les secours et rien faire": "end_lose"
+                "Non je vais attendre les secours et rien faire": "End_lose"
             }
         },
         "p2": {
@@ -34,18 +34,18 @@
             "choices": ["Oui, aide-moi", "Non, je quitte"],
             "routes": {
                 "Oui, aide-moi": "p2_hint",
-                "Non, je quitte": "end_lose"
+                "Non, je quitte": "End_lose"
             }
         },
         "p2_hint": {
             "type": "boolean",
-            "prompt": "INDICE : Si on te dit 'Tous sont faux SAUF 9', cela veut dire que le nombre de vrais est écrit dans la phrase ! On recommence ?",
+            "prompt": "INDICE : Si on te dit 'Tous sont faux SAUF 9, cela veut dire que le nombre de vrais est écrit dans la phrase ! On recommence ?",
             "image": "images/indice.png",
             "routes": { "true": "p2" }
         },
         "p3": {
             "type": "qcm",
-            "prompt": "Une des étageres se met à briller, Il y a 3 vases, l’un contient de l’eau, l’autre du poison et le dernier est vide. Le vase d’eau n’est pas celui de droite, celui de poison n’est pas au milieu, Les vase à gauche et à droite sont aussi lourds.",
+            "prompt": "Une des étageres se met à briller, Il y a 3 vases, l’un contient de l’eau, l’autre du poison et le dernier est vide. Le vase d’eau n’est pas celui de droite, celui de poison n’est pas au milieu, Les vases à gauche et à droite sont aussi lourds.",
             "image": "images/vase.png",
             "choices": ["Vase de gauche", "Vase du milieu", "Vase de droite"],
             "routes": {
@@ -61,7 +61,7 @@
             "choices": ["Donne l'indice", "Abandonner"],
             "routes": {
                 "Donne l'indice": "p3_hint",
-                "Abandonner": "end_lose"
+                "Abandonner": "End_lose"
             }
         },
         "p3_hint": {
@@ -86,7 +86,7 @@
             "choices": ["Oui", "Non"],
             "routes": {
                 "Oui": "p4_hint",
-                "Non": "end_lose"
+                "Non": "End_lose"
             }
         },
         "p4_hint": {
@@ -101,7 +101,7 @@
             "image": "images/mirroir.png",
             "choices": ["Une bougie", "Ton ombre", "Un miroir", "De l'eau"],
             "routes": {
-                "Ton ombre": "end_win",
+                "Ton ombre": "End_win",
                 "Une bougie": "p5_retry",
                 "Un miroir": "p5_retry",
                 "De l'eau": "p5_retry"
@@ -114,7 +114,7 @@
             "choices": ["Oui", "Non"],
             "routes": {
                 "Oui": "p5_hint",
-                "Non": "end_lose"
+                "Non": "End_lose"
             }
         },
         "p5_hint": {
