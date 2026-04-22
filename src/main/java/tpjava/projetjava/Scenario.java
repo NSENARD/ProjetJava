@@ -32,7 +32,7 @@ public class Scenario {
     private HashMap<String, HashMap<String,String>> PuzzleBodies;
     private HashMap<String, HashMap<String,String>> PuzzleRoutes;
     private HashMap<String,String[]> PuzzleQcmChoices;
-    
+    private String nomDossier;
     
         
     public Scenario(File f) throws FileNotFoundException {
@@ -44,7 +44,9 @@ public class Scenario {
      }
     
     public void ManifestLector(String nomDossier) throws FileNotFoundException{ // IA !!!
-            try {   
+            this.nomDossier=nomDossier;
+            System.out.println(nomDossier);
+        try {   
             JsonParser parser = new JsonParser();
             JsonObject root = parser.parse(new FileReader(nomDossier+"\\manifest.json")).getAsJsonObject();
 
@@ -117,18 +119,19 @@ public class Scenario {
             case "qcm":
                 var choices=PuzzleQcmChoices.get(PuzzleName);
                 System.out.println(PuzzleName);
-                CurrentPuzzle= new Qcm(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes,choices);
+                CurrentPuzzle= new Qcm(nomDossier+"/"+PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes,choices);
                 break;
             case "text":
-                CurrentPuzzle= new Text(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
+                CurrentPuzzle= new Text(nomDossier+"/"+PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
                 break;
             case "boolean":
-                CurrentPuzzle= new BooleanP(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
+                CurrentPuzzle= new BooleanP(nomDossier+"/"+PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
                 break;
-            case "end_win":
+            /*case "end_win":
                 CurrentPuzzle= new EndWin;
             case "end_lose":
                 CurrentPuzzle= new EndLose;
+            */
         }
         printPuzzle();
         
