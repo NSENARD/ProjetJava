@@ -46,6 +46,7 @@ public class Scenario {
         EndWinPuzzle.put("prompt", "Victoire ");
         EndWinPuzzle.put("type", "end_win");
         EndLosePuzzle.put("type", "end_lose");
+        
 
         PuzzleBodies.put("end_win",EndWinPuzzle );
         PuzzleBodies.put("end_lose",EndLosePuzzle );
