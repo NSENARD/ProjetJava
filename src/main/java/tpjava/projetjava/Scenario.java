@@ -32,7 +32,7 @@ public class Scenario {
     private HashMap<String, HashMap<String,String>> PuzzleBodies;
     private HashMap<String, HashMap<String,String>> PuzzleRoutes;
     private HashMap<String,String[]> PuzzleQcmChoices;
-    
+    private String nomDossier;
     
         
     public Scenario(File f) throws FileNotFoundException {
@@ -40,11 +40,22 @@ public class Scenario {
         PuzzleRoutes=new HashMap();
         PuzzleQcmChoices=new HashMap();
         ManifestLector(f.toString());
+        HashMap<String,String> EndWinPuzzle=new HashMap<>();
+        HashMap<String,String> EndLosePuzzle=new HashMap<>();
+        EndLosePuzzle.put("prompt", "Perdu ");
+        EndWinPuzzle.put("prompt", "Victoire ");
+        EndWinPuzzle.put("type", "end_win");
+        EndLosePuzzle.put("type", "end_lose");
+
+        PuzzleBodies.put("end_win",EndWinPuzzle );
+        PuzzleBodies.put("end_lose",EndLosePuzzle );
         changePuzzle(start);   
      }
     
     public void ManifestLector(String nomDossier) throws FileNotFoundException{ // IA !!!
-            try {   
+            this.nomDossier=nomDossier;
+            System.out.println(nomDossier);
+        try {   
             JsonParser parser = new JsonParser();
             JsonObject root = parser.parse(new FileReader(nomDossier+"\\manifest.json")).getAsJsonObject();
 
@@ -97,13 +108,7 @@ public class Scenario {
         }
     
 }
-        
-    public void printPuzzle() {
-        var PrincipalPanel=new JPanel(new GridLayout(4,1));
-        
-        
-        
-    }
+
     
     
     public void changePuzzle(String PuzzleName){
@@ -111,28 +116,29 @@ public class Scenario {
         
         var PuzzleBody=PuzzleBodies.get(PuzzleName);
         var routes=PuzzleRoutes.get(PuzzleName);
-        System.out.println(PuzzleName);
-        System.out.println(PuzzleBodies.get(PuzzleName));
+        System.out.println(PuzzleBody.get("type"));
         switch(PuzzleBody.get("type")){
             case "qcm":
                 var choices=PuzzleQcmChoices.get(PuzzleName);
                 System.out.println(PuzzleName);
-                CurrentPuzzle= new Qcm(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes,choices);
+                CurrentPuzzle= new Qcm(nomDossier+"/"+PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes,choices);
                 break;
             case "text":
-                CurrentPuzzle= new Text(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
+                CurrentPuzzle= new Text(nomDossier+"/"+PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
                 break;
             case "boolean":
-                CurrentPuzzle= new BooleanP(PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
+                CurrentPuzzle= new BooleanP(nomDossier+"/"+PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes);
                 break;
             case "end_win":
-                CurrentPuzzle= new EndWin("Victoire");
+                
+                CurrentPuzzle= new EndWin(PuzzleBody.get("prompt"));
+                            
                 break;
             case "end_lose":
-                CurrentPuzzle= new EndLose("Perdu");
+                CurrentPuzzle= new EndLose(PuzzleBody.get("prompt"));
                 break;
         }
-        printPuzzle();
+
         
     }
 

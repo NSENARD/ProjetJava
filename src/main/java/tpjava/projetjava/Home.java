@@ -52,12 +52,15 @@ public class Home extends JFrame{
         var PrincipalPanel=new JPanel(new GridLayout(4,1));
         var ValiderBtn=new JButton("Valider");
         ValiderBtn.addActionListener(e->{
-            try{scenario.changePuzzle(scenario.getCurrentPuzzle().getAnswer());}
+            try{scenario.changePuzzle(scenario.getCurrentPuzzle().getAnswer());
+            
+            }
             catch(Exception exception){System.out.println("erreur");}
             PrincipalPanel.removeAll();
             build();
             this.setVisible(true);
         });
+        
         var prompt=new JLabel(scenario.getCurrentPuzzle().getPrompt());
         var Image= new ImageIcon(scenario.getCurrentPuzzle().getImagePath());
         var AnswerPanel= scenario.getCurrentPuzzle().getAnswerPanel();

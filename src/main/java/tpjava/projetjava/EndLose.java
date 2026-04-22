@@ -5,11 +5,13 @@
 package tpjava.projetjava;
 
 import java.util.HashMap;
+import javax.swing.JPanel;
 
 public class EndLose extends Puzzle {
     
     public EndLose(String prompt) {
         super(prompt);
+        AnswerPanel=new JPanel();
     }
 
     public void afficher() {

@@ -5,12 +5,14 @@
 package tpjava.projetjava;
 
 import java.util.HashMap;
+import javax.swing.JPanel;
 
 
 public class EndWin extends Puzzle {
 
     public EndWin(String prompt) {
         super(prompt);
+        AnswerPanel=new JPanel();
     }
 
 
