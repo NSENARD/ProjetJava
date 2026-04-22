@@ -9,8 +9,8 @@ import java.util.HashMap;
 
 public class EndWin extends Puzzle {
 
-    public EndWin(String image, String prompt, HashMap<String, String> routes) {
-        super(image, prompt, routes);
+    public EndWin(String prompt) {
+        super(prompt);
     }
 
 

@@ -61,7 +61,7 @@
             "choices": ["Donne l'indice", "Abandonner"],
             "routes": {
                 "Donne l'indice": "p3_hint",
-                "Abandonner": "End_lose"
+                "Abandonner": "EndLose"
             }
         },
         "p3_hint": {
@@ -86,7 +86,7 @@
             "choices": ["Oui", "Non"],
             "routes": {
                 "Oui": "p4_hint",
-                "Non": "End_lose"
+                "Non": "EndLose"
             }
         },
         "p4_hint": {
@@ -101,7 +101,7 @@
             "image": "images/mirroir.png",
             "choices": ["Une bougie", "Ton ombre", "Un miroir", "De l'eau"],
             "routes": {
-                "Ton ombre": "End_win",
+                "Ton ombre": "EndWin",
                 "Une bougie": "p5_retry",
                 "Un miroir": "p5_retry",
                 "De l'eau": "p5_retry"
@@ -114,7 +114,7 @@
             "choices": ["Oui", "Non"],
             "routes": {
                 "Oui": "p5_hint",
-                "Non": "End_lose"
+                "Non": "EndLose"
             }
         },
         "p5_hint": {

@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 public class EndLose extends Puzzle {
     
-    public EndLose(String image, String prompt, HashMap<String, String> routes) {
-        super(image, prompt, routes);
+    public EndLose(String prompt) {
+        super(prompt);
     }
 
     public void afficher() {

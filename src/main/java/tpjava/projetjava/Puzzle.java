@@ -18,6 +18,10 @@ public abstract class Puzzle {
         this.prompt = prompt;
         this.routes=routes;
     }
+    
+    public Puzzle(String prompt) {
+        this.prompt = prompt;
+    }
 
     public String getImagePath() {
         return imagePath;
