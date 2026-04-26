@@ -28,7 +28,7 @@ public class Qcm extends Puzzle{
         // 1. Initialisation du panel
         AnswerPanel = new JPanel();
         AnswerPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
-        System.out.println(choices[1]);
+        
         group = new ButtonGroup();
         
         // 2. Création dynamique des boutons selon le tableau 'choices'

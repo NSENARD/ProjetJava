@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.FileSystems;
@@ -63,7 +64,7 @@ public class Home extends JFrame{
         throw new FileNotFoundException("Recherche annulée");
         }
     
-    throw new FileNotFoundException("Dossier non trouvé");
+    throw new FileNotFoundException("Dossier non trouvé");  
     }
 
     private void build() {
@@ -74,7 +75,7 @@ public class Home extends JFrame{
             try{scenario.changePuzzle(scenario.getCurrentPuzzle().getAnswer());
             
             }
-            catch(Exception exception){System.out.println("erreur");}
+            catch(Exception exception){System.out.println(exception);}
             PrincipalPanel.removeAll();
             build();
             this.setVisible(true);
@@ -82,11 +83,14 @@ public class Home extends JFrame{
         ValiderBtn.setPreferredSize(new Dimension(100 ,20));
         ValiderPanel.add(ValiderBtn);
         var prompt=new JLabel(scenario.getCurrentPuzzle().getPrompt());
-        var Image= new ImageIcon(scenario.getCurrentPuzzle().getImagePath());
+        var ImageIcon= new ImageIcon(scenario.getCurrentPuzzle().getImagePath());
+        Image image = ImageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(400, (ImageIcon.getIconWidth()/ImageIcon.getIconHeight())*400,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        ImageIcon = new ImageIcon(newimg);
         var AnsQuestPanel=new JPanel(new GridLayout(2,1));
         var AnswerPanel= scenario.getCurrentPuzzle().getAnswerPanel();
         
-        PrincipalPanel.add(new JLabel(Image),BorderLayout.NORTH);
+        PrincipalPanel.add(new JLabel(ImageIcon),BorderLayout.NORTH);
         AnsQuestPanel.add(prompt);
         AnsQuestPanel.add(AnswerPanel);
         PrincipalPanel.add(AnsQuestPanel,BorderLayout.CENTER);
