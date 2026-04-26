@@ -33,31 +33,32 @@ public class Scenario {
     private String nomDossier;
     
         
-    public Scenario(File f) throws FileNotFoundException {
+    public Scenario(File f) throws FileNotFoundException, Exception {
         PuzzleBodies=new HashMap();
         PuzzleRoutes=new HashMap();
         PuzzleQcmChoices=new HashMap();
-        ManifestLector(f.toString());
+        ManifestLector(f);
+      
         HashMap<String,String> EndWinPuzzle=new HashMap<>();
         HashMap<String,String> EndLosePuzzle=new HashMap<>();
         EndLosePuzzle.put("prompt", "Perdu ");
         EndWinPuzzle.put("prompt", "Victoire ");
         EndWinPuzzle.put("type", "end_win");
         EndLosePuzzle.put("type", "end_lose");
-        
-
         PuzzleBodies.put("end_win",EndWinPuzzle );
         PuzzleBodies.put("end_lose",EndLosePuzzle );
         changePuzzle(start);   
      }
     
-    public void ManifestLector(String nomDossier) throws FileNotFoundException{ // IA !!!
-            this.nomDossier=nomDossier;
-            System.out.println(nomDossier);
+    public void ManifestLector(File f) throws FileNotFoundException, Exception{ // Majoritairement de l'IA juste la vérification du dossier image est inclue
+            this.nomDossier=f.toString();
         try {   
             JsonParser parser = new JsonParser();
             JsonObject root = parser.parse(new FileReader(nomDossier+"\\manifest.json")).getAsJsonObject();
-
+            if (!(new File(nomDossier+"\\images").isDirectory())){
+                throw new FileNotFoundException(nomDossier+"\\images (Le fichier spécifié est introuvable)");
+            }
+            
             start=root.get("start").getAsString();
             JsonObject puzzles = root.getAsJsonObject("puzzles");
             
@@ -99,8 +100,10 @@ public class Scenario {
                 }
 
                 PuzzleQcmChoices.put(nomPuzzle, choices);
+                
             }
             }
+            ManifestDetector(f);
             }
             catch (Exception e) {
             throw e;
@@ -109,10 +112,39 @@ public class Scenario {
     
 }
    
-    public void ManifestDetector(){
+    public void ManifestDetector(File f) throws Exception{
+        for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleBodies.entrySet()){
+            if(!puzzle.getValue().containsKey("image")){
+                throw new Exception(puzzle.getKey()+"n'a pas d'image");
+            }
+            if(!puzzle.getValue().containsKey("prompt")){
+                throw new Exception(puzzle.getKey()+" n'a pas de prompt");
+            }
+        }
         
-    
-}
+        for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleRoutes.entrySet()){
+            for (Map.Entry<String,String> route : puzzle.getValue().entrySet()){
+                if (!PuzzleRoutes.containsKey(route.getValue()) && !route.getValue().equals("end_win") && !route.getValue().equals("end_lose")){
+                    throw new Exception(puzzle.getKey()+" "+route.getKey()+" ne mène nul part");
+                }   
+            }
+            if (PuzzleBodies.get(puzzle.getKey()).get("type").equals("boolean")){
+                if (!puzzle.getValue().containsKey("true") || !puzzle.getValue().containsKey("false") ){
+                    throw new Exception(puzzle.getKey()+"doit avoir true et false en route");}
+            }
+            if (PuzzleBodies.get(puzzle.getKey()).get("type").equals("text")){
+                if (!puzzle.getValue().containsKey("*")){
+                    throw new Exception(puzzle.getKey()+"doit contenir une réponse par défaut(*)");}
+            }  
+        }
+        for (Map.Entry<String, String[]> puzzle : PuzzleQcmChoices.entrySet()){
+            for (String choix : puzzle.getValue()){
+                if (!PuzzleRoutes.get(puzzle.getKey()).containsKey(choix)){
+                    throw new Exception(puzzle.getKey()+" "+choix+" n'a pas de route associée");
+                }   
+            }
+        }
+    }
     
     public void changePuzzle(String PuzzleName){        
         var PuzzleBody=PuzzleBodies.get(PuzzleName);
