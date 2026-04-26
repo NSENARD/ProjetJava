@@ -7,7 +7,7 @@ package tpjava.projetjava;
 import java.awt.FlowLayout;
 import java.util.HashMap;
 import javax.swing.*;
-
+  
 /**
  *
  * @author Maiwen
@@ -48,7 +48,6 @@ public class BooleanP extends Puzzle{
     
     @Override
     public String getAnswer() {
-
         if (vrai.isSelected()) return routes.get("true");
         if (faux.isSelected()) return routes.get("false");
         else return null;

@@ -4,7 +4,6 @@
  */
 package tpjava.projetjava;
 
-
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
@@ -18,7 +17,6 @@ import java.io.Reader;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
 import java.io.File;
-
 
 
 /**
@@ -105,16 +103,18 @@ public class Scenario {
             }
             }
             catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
+        
     
 }
-
-    
-    
-    public void changePuzzle(String PuzzleName){
+   
+    public void ManifestDetector(){
         
-        
+    
+}
+    
+    public void changePuzzle(String PuzzleName){        
         var PuzzleBody=PuzzleBodies.get(PuzzleName);
         var routes=PuzzleRoutes.get(PuzzleName);
         System.out.println(PuzzleBody.get("type"));
