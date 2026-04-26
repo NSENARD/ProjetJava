@@ -27,16 +27,17 @@ public class Home extends JFrame{
         this.setSize(800,600);
         boolean FileNameNotFound=true;
         while(FileNameNotFound){
-        try{scenario=new Scenario(FileChooser());
+        try{
+        File scenarioFile= FileChooser();
+        scenario=new Scenario(scenarioFile);
         FileNameNotFound=false;
         build();
         this.setVisible(true);
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null,e.getMessage(),"Erreur",JOptionPane.WARNING_MESSAGE);
-            if(e.getMessage()=="Dossier non trouvé"){
-                FileNameNotFound=false;
-            }
+            if(!"Recherche annulée".equals(e.getMessage())){
+                JOptionPane.showMessageDialog(null,e.getMessage(),"Erreur",JOptionPane.WARNING_MESSAGE);
+            }else{FileNameNotFound=false;}
         }
         }
           
@@ -58,9 +59,11 @@ public class Home extends JFrame{
         return choose.getSelectedFile();
       }
     } 
+    if (choose.getSelectedFile()==null){
+        throw new FileNotFoundException("Recherche annulée");
+        }
+    
     throw new FileNotFoundException("Dossier non trouvé");
-    
-    
     }
 
     private void build() {

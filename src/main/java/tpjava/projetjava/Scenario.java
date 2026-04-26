@@ -59,8 +59,11 @@ public class Scenario {
                 throw new FileNotFoundException(nomDossier+"\\images (Le fichier spécifié est introuvable)");
             }
             
-            start=root.get("start").getAsString();
-            JsonObject puzzles = root.getAsJsonObject("puzzles");
+            try {start=root.get("start").getAsString();}
+            catch(Exception e){ throw new Exception("\"start\" non trouvé dans le manifest");}
+            try{
+                JsonObject puzzles = root.getAsJsonObject("puzzles");
+            
             
             for (String nomPuzzle : puzzles.keySet()) {
 
@@ -103,7 +106,8 @@ public class Scenario {
                 
             }
             }
-            ManifestDetector(f);
+            }catch(Exception e){throw new Exception("\"puzzles\" non trouvé dans le manifest");}
+            StructureErrorDetector(f);
             }
             catch (Exception e) {
             throw e;
@@ -112,15 +116,32 @@ public class Scenario {
     
 }
    
-    public void ManifestDetector(File f) throws Exception{
-        for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleBodies.entrySet()){
+    public void StructureErrorDetector(File f) throws Exception{
+        if (!PuzzleBodies.containsKey(start)){
+            throw new Exception("start erroné");
+        }
+        TestPuzzleBodies();
+        TestPuzzleRoutes();
+        TestQcmChoices();
+    }
+    private void TestPuzzleBodies() throws Exception{
+                for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleBodies.entrySet()){
             if(!puzzle.getValue().containsKey("image")){
                 throw new Exception(puzzle.getKey()+"n'a pas d'image");
             }
             if(!puzzle.getValue().containsKey("prompt")){
                 throw new Exception(puzzle.getKey()+" n'a pas de prompt");
             }
+            if(!puzzle.getValue().containsKey("type")){
+                throw new Exception(puzzle.getKey()+" n'a pas de type");
+            }
+            if(!puzzle.getValue().get("type").equals("qcm") && !puzzle.getValue().get("type").equals("boolean")&& !puzzle.getValue().get("type").equals("text")){
+                throw new Exception(puzzle.getKey()+" \""+puzzle.getValue().get("type")+"\" type inexistant");
+            }
         }
+    
+    }
+    private void TestPuzzleRoutes() throws Exception{
         
         for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleRoutes.entrySet()){
             for (Map.Entry<String,String> route : puzzle.getValue().entrySet()){
@@ -130,13 +151,16 @@ public class Scenario {
             }
             if (PuzzleBodies.get(puzzle.getKey()).get("type").equals("boolean")){
                 if (!puzzle.getValue().containsKey("true") || !puzzle.getValue().containsKey("false") ){
-                    throw new Exception(puzzle.getKey()+"doit avoir true et false en route");}
+                    throw new Exception(puzzle.getKey()+" doit avoir true et false en route");}
             }
             if (PuzzleBodies.get(puzzle.getKey()).get("type").equals("text")){
                 if (!puzzle.getValue().containsKey("*")){
-                    throw new Exception(puzzle.getKey()+"doit contenir une réponse par défaut(*)");}
+                    throw new Exception(puzzle.getKey()+" doit contenir une réponse par défaut(*)");}
             }  
         }
+        
+    }
+    private void TestQcmChoices() throws Exception{
         for (Map.Entry<String, String[]> puzzle : PuzzleQcmChoices.entrySet()){
             for (String choix : puzzle.getValue()){
                 if (!PuzzleRoutes.get(puzzle.getKey()).containsKey(choix)){
@@ -145,7 +169,6 @@ public class Scenario {
             }
         }
     }
-    
     public void changePuzzle(String PuzzleName){        
         var PuzzleBody=PuzzleBodies.get(PuzzleName);
         var routes=PuzzleRoutes.get(PuzzleName);
