@@ -62,9 +62,7 @@ public class Scenario {
             try {start=root.get("start").getAsString();}
             catch(Exception e){ throw new Exception("\"start\" non trouvé dans le manifest");}
             try{
-                JsonObject puzzles = root.getAsJsonObject("puzzles");
-            
-            
+                JsonObject puzzles = root.getAsJsonObject("puzzles");  
             for (String nomPuzzle : puzzles.keySet()) {
 
             JsonObject puzzle = puzzles.getAsJsonObject(nomPuzzle);
@@ -146,7 +144,7 @@ public class Scenario {
         for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleRoutes.entrySet()){
             for (Map.Entry<String,String> route : puzzle.getValue().entrySet()){
                 if (!PuzzleRoutes.containsKey(route.getValue()) && !route.getValue().equals("end_win") && !route.getValue().equals("end_lose")){
-                    throw new Exception(puzzle.getKey()+" "+route.getKey()+" ne mène nul part");
+                    throw new Exception(puzzle.getKey()+" \""+route.getKey()+"\" ne mène nul part");
                 }   
             }
             if (PuzzleBodies.get(puzzle.getKey()).get("type").equals("boolean")){
@@ -164,7 +162,7 @@ public class Scenario {
         for (Map.Entry<String, String[]> puzzle : PuzzleQcmChoices.entrySet()){
             for (String choix : puzzle.getValue()){
                 if (!PuzzleRoutes.get(puzzle.getKey()).containsKey(choix)){
-                    throw new Exception(puzzle.getKey()+" "+choix+" n'a pas de route associée");
+                    throw new Exception(puzzle.getKey()+" \""+choix+"\" n'a pas de route associée");
                 }   
             }
         }
@@ -172,11 +170,9 @@ public class Scenario {
     public void changePuzzle(String PuzzleName){        
         var PuzzleBody=PuzzleBodies.get(PuzzleName);
         var routes=PuzzleRoutes.get(PuzzleName);
-        System.out.println(PuzzleBody.get("type"));
         switch(PuzzleBody.get("type")){
             case "qcm":
                 var choices=PuzzleQcmChoices.get(PuzzleName);
-                System.out.println(PuzzleName);
                 CurrentPuzzle= new Qcm(nomDossier+"/"+PuzzleBody.get("image"),PuzzleBody.get("prompt"),routes,choices);
                 break;
             case "text":

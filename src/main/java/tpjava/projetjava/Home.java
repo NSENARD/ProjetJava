@@ -5,6 +5,7 @@
 package tpjava.projetjava;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -75,14 +76,20 @@ public class Home extends JFrame{
             try{scenario.changePuzzle(scenario.getCurrentPuzzle().getAnswer());
             
             }
-            catch(Exception exception){System.out.println(exception);}
+            catch(Exception exception){}
             PrincipalPanel.removeAll();
             build();
             this.setVisible(true);
         });
         ValiderBtn.setPreferredSize(new Dimension(100 ,20));
         ValiderPanel.add(ValiderBtn);
-        var prompt=new JLabel(scenario.getCurrentPuzzle().getPrompt());
+        
+        var prompt=new JTextArea(scenario.getCurrentPuzzle().getPrompt());
+        prompt.setEditable(false);
+        prompt.setLineWrap(true);
+        prompt.setBackground(this.getBackground());
+         prompt.setFont(prompt.getFont().deriveFont(Font.BOLD, prompt.getFont().getSize()));
+
         var ImageIcon= new ImageIcon(scenario.getCurrentPuzzle().getImagePath());
         Image image = ImageIcon.getImage(); // transform it 
         Image newimg = image.getScaledInstance(400, (ImageIcon.getIconWidth()/ImageIcon.getIconHeight())*400,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
