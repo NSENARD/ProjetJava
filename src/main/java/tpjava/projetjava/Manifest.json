@@ -9,7 +9,7 @@
         "p1": {
             "type": "qcm",
             "prompt": "Tu as été enfermé dans une pyramide. Pour en sortir, une seule solution : résoudre les énigmes ! C'est parti ?",
-            "image": "images/pyramide.png",
+            "image": "images/entree.png",
             "choices": ["OUI !!!", "Non, je vais attendre les secours et ne rien faire"],
             "routes": {
                 "OUI !!!": "p2",
@@ -105,7 +105,7 @@
         "p5": {
             "type": "qcm",
             "prompt": "Une statue sort du sol : 'Je n'ai pas de voix, mais je te réponds. Je n'ai pas de corps, mais je bouge avec toi. Plus la lumière est forte, plus je suis présente. Pourtant, si tu fermes les yeux, je n'existe plus.'",
-            "image": "images/miroir.png",
+            "image": "images/mirroir.png",
             "choices": ["Une bougie", "Ton ombre", "Un miroir", "De l'eau"],
             "routes": {
                 "Ton ombre": "end_win",
