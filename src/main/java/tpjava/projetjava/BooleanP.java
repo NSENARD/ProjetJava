@@ -18,6 +18,7 @@ public class BooleanP extends Puzzle{
     private JRadioButton vrai;
     private JRadioButton faux;
     private ButtonGroup group;
+    
 
     public BooleanP(String imagePath, String prompt, HashMap<String, String> routes){
         super(imagePath, prompt,routes);

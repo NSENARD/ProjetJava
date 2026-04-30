@@ -18,7 +18,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonObject;
 import java.io.File;
 
-
 /**
  *
  * @author Noe
@@ -59,16 +58,20 @@ public class Scenario {
                 throw new FileNotFoundException(nomDossier+"\\images (Le fichier spécifié est introuvable)");
             }
             
-            try {start=root.get("start").getAsString();}
+            try {start=root.get("start").getAsString();
+            if(start.equals("changeScenario")){start="changeScenario_user";}}
             catch(Exception e){ throw new Exception("\"start\" non trouvé dans le manifest");}
             try{
-                JsonObject puzzles = root.getAsJsonObject("puzzles");  
+                JsonObject puzzles = root.getAsJsonObject("puzzles"); 
+                
             for (String nomPuzzle : puzzles.keySet()) {
-
+                
             JsonObject puzzle = puzzles.getAsJsonObject(nomPuzzle);
-
+            
+            if (nomPuzzle.equals("changeScenario")){
+                nomPuzzle= "changeScenario_user";
+            }
             HashMap<String, String> infos = new HashMap<>();
-
             if (puzzle.has("type"))
                 infos.put("type", puzzle.get("type").getAsString());
 
@@ -77,7 +80,7 @@ public class Scenario {
 
             if (puzzle.has("image"))
                 infos.put("image", puzzle.get("image").getAsString());
-
+            
             PuzzleBodies.put(nomPuzzle, infos);
 
             HashMap<String, String> routes = new HashMap<>();
@@ -85,7 +88,11 @@ public class Scenario {
             JsonObject routesJson = puzzle.getAsJsonObject("routes");
 
             for (String routeKey : routesJson.keySet()) {
-                routes.put(routeKey, routesJson.get(routeKey).getAsString());
+                var destination=routesJson.get(routeKey).getAsString();
+                if (routesJson.get(routeKey).getAsString().equals("changeScenario")){
+                    destination="changeScenario_user";
+                }
+                routes.put(routeKey, destination);
             }
 
                 PuzzleRoutes.put(nomPuzzle, routes);
@@ -123,7 +130,7 @@ public class Scenario {
         TestQcmChoices();
     }
     private void TestPuzzleBodies() throws Exception{
-                for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleBodies.entrySet()){
+            for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleBodies.entrySet()){
             if(!puzzle.getValue().containsKey("image")){
                 throw new Exception(puzzle.getKey()+"n'a pas d'image");
             }
@@ -155,6 +162,10 @@ public class Scenario {
                 if (!puzzle.getValue().containsKey("*")){
                     throw new Exception(puzzle.getKey()+" doit contenir une réponse par défaut(*)");}
             }  
+            if (PuzzleBodies.get(puzzle.getKey()).get("type").equals("qcm")){
+                if (!PuzzleQcmChoices.containsKey(puzzle.getKey())){
+                    throw new Exception(puzzle.getKey()+" doit avoir une liste de choix ");}
+            } 
         }
         
     }
@@ -167,7 +178,7 @@ public class Scenario {
             }
         }
     }
-    public void changePuzzle(String PuzzleName){        
+    public Puzzle changePuzzle(String PuzzleName){        
         var PuzzleBody=PuzzleBodies.get(PuzzleName);
         var routes=PuzzleRoutes.get(PuzzleName);
         switch(PuzzleBody.get("type")){
@@ -183,15 +194,20 @@ public class Scenario {
                 break;
             case "end_win":
                 
-                CurrentPuzzle= new EndWin(PuzzleBody.get("prompt"));
+                CurrentPuzzle= new EndWin(start);
                             
                 break;
             case "end_lose":
-                CurrentPuzzle= new EndLose(PuzzleBody.get("prompt"));
+                CurrentPuzzle= new EndLose(start);
                 break;
         }
+        return this.getCurrentPuzzle();
 
         
+    }
+
+    public String getStart() {
+        return start;
     }
 
     public Puzzle getCurrentPuzzle() {

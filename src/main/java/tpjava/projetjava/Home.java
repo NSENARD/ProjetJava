@@ -5,6 +5,7 @@
 package tpjava.projetjava;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -17,23 +18,30 @@ import javax.swing.*;
 
 /**
  *
- * @author senar
+ * @author Noé
  */
-public class Home extends JFrame{
+public final class Home extends JFrame{
     
     private Scenario scenario;
-    
+    JTextArea prompt;
+    JPanel AnswerPanel;
+    JLabel ImageLabel;
+    private String pseudo;
+    Lobby lobby;
     public Home() throws FileNotFoundException{
         super("Home");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(800,600);
+        this.setSize(800,800);
+        SetUp();
+    }
+    public void SearchScenario(){
         boolean FileNameNotFound=true;
         while(FileNameNotFound){
         try{
         File scenarioFile= FileChooser();
         scenario=new Scenario(scenarioFile);
         FileNameNotFound=false;
-        build();
+        ChangePuzzle(scenario.getCurrentPuzzle());
         this.setVisible(true);
         }
         catch(Exception e){
@@ -42,7 +50,7 @@ public class Home extends JFrame{
             }else{FileNameNotFound=false;}
         }
         }
-          
+    
     }
     private File FileChooser() throws FileNotFoundException{//trouvé sur internet
         JFileChooser choose = new JFileChooser(
@@ -68,41 +76,64 @@ public class Home extends JFrame{
     throw new FileNotFoundException("Dossier non trouvé");  
     }
 
-    private void build() {
+    private void SetUp() {
         var PrincipalPanel=new JPanel(new BorderLayout());
         var ValiderBtn=new JButton("Valider");
         var ValiderPanel=new JPanel();
         ValiderBtn.addActionListener(e->{
-            try{scenario.changePuzzle(scenario.getCurrentPuzzle().getAnswer());
-            
+            if (scenario==null){
+                pseudo=lobby.getPseudo();
+                SearchScenario();
+            }else{
+                try{
+                    String Answer=scenario.getCurrentPuzzle().getAnswer();
+                    if (Answer.equals("changeScenario")){
+                        scenario=null;
+                        ChangePuzzle(lobby);
+                    }
+                    else{
+                    ChangePuzzle(scenario.changePuzzle(Answer));}
+                }catch(Exception ex){System.out.println(ex);}
             }
-            catch(Exception exception){}
-            PrincipalPanel.removeAll();
-            build();
-            this.setVisible(true);
         });
         ValiderBtn.setPreferredSize(new Dimension(100 ,20));
         ValiderPanel.add(ValiderBtn);
         
-        var prompt=new JTextArea(scenario.getCurrentPuzzle().getPrompt());
+        prompt=new JTextArea("");
         prompt.setEditable(false);
         prompt.setLineWrap(true);
         prompt.setBackground(this.getBackground());
-         prompt.setFont(prompt.getFont().deriveFont(Font.BOLD, prompt.getFont().getSize()));
+        prompt.setFont(prompt.getFont().deriveFont(Font.BOLD, prompt.getFont().getSize()));
 
-        var ImageIcon= new ImageIcon(scenario.getCurrentPuzzle().getImagePath());
-        Image image = ImageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(400, (ImageIcon.getIconWidth()/ImageIcon.getIconHeight())*400,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        ImageIcon = new ImageIcon(newimg);
-        var AnsQuestPanel=new JPanel(new GridLayout(2,1));
-        var AnswerPanel= scenario.getCurrentPuzzle().getAnswerPanel();
+        ImageLabel=new JLabel();
+        var AnsQuestPanel=new JPanel(new BorderLayout());
+        AnswerPanel= new JPanel();
         
-        PrincipalPanel.add(new JLabel(ImageIcon),BorderLayout.NORTH);
-        AnsQuestPanel.add(prompt);
-        AnsQuestPanel.add(AnswerPanel);
+        PrincipalPanel.add(ImageLabel,BorderLayout.NORTH);
+        AnsQuestPanel.add(prompt, BorderLayout.NORTH);
+        AnsQuestPanel.add(AnswerPanel,BorderLayout.SOUTH);
         PrincipalPanel.add(AnsQuestPanel,BorderLayout.CENTER);
         PrincipalPanel.add(ValiderPanel,BorderLayout.SOUTH);
         this.add(PrincipalPanel);
+        lobby=new Lobby();
+        ChangePuzzle(lobby);
+    }
+    
+    private void ChangePuzzle(Puzzle p){
+        prompt.setText(p.getPrompt());
+        JPanel Parent=(JPanel) AnswerPanel.getParent();
+        
+        // Utilisation de l'IA pour comprendre comment modifier le AnswerPanel
+        
+        Parent.remove(AnswerPanel);
+        AnswerPanel=p.getAnswerPanel();
+        Parent.add(AnswerPanel);
+        var ImageIcon= new ImageIcon(p.getImagePath());
+        Image image = ImageIcon.getImage(); 
+        Image newimg = image.getScaledInstance(400, (ImageIcon.getIconWidth()/ImageIcon.getIconHeight())*400,  java.awt.Image.SCALE_SMOOTH);
+        ImageIcon = new ImageIcon(newimg);
+        ImageLabel.setIcon(ImageIcon);
+        this.setVisible(true);
         
     }
     

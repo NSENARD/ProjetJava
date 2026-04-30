@@ -5,24 +5,42 @@
 package tpjava.projetjava;
 
 import java.util.HashMap;
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
 
 public class EndLose extends Puzzle {
-    
-    public EndLose(String prompt) {
-        super(prompt);
+    private JRadioButton retry;
+    private JRadioButton Autre;
+    private ButtonGroup group;
+    String start;
+    public EndLose(String start) {
+        prompt="Défaite !";
+        this.start=start;
+        build();
+    }
+    private void build(){
         AnswerPanel=new JPanel();
-    }
+        group = new ButtonGroup();
+        retry = new JRadioButton("Réessayer");
+        Autre = new JRadioButton("Changer de scénario");
 
-    public void afficher() {
-        System.out.println("Défaite...");
-        System.out.println(prompt);
-    }
+        // 3. Organisation logique (exclusivité des boutons)
+        group.add(retry);
+        group.add(Autre);
 
+        // 4. Ajout des composants au AnswerPanel
+
+        AnswerPanel.add(retry);
+        AnswerPanel.add(Autre);
+    }
     @Override
     public String getAnswer() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        if (retry.isSelected()) return start;
+        if (Autre.isSelected()) return "changeScenario";
+        else return null; 
     }
 }
-
 
