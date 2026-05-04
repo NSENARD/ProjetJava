@@ -19,9 +19,7 @@ public abstract class Puzzle {
         this.routes=routes;
     }
     
-    public Puzzle() {
-       
-    }
+    public Puzzle() {}
 
     public String getImagePath() {
         return imagePath;

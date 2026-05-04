@@ -194,11 +194,11 @@ public class Scenario {
                 break;
             case "end_win":
                 
-                CurrentPuzzle= new EndWin(start);
+                CurrentPuzzle= new End(start, "Victoire !");
                             
                 break;
             case "end_lose":
-                CurrentPuzzle= new EndLose(start);
+                CurrentPuzzle= new End(start, "Défaite");
                 break;
         }
         return this.getCurrentPuzzle();

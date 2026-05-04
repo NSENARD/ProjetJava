@@ -11,13 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 
-public class EndLose extends Puzzle {
+public class End extends Puzzle {
     private JRadioButton retry;
     private JRadioButton Autre;
     private ButtonGroup group;
     String start;
-    public EndLose(String start) {
-        prompt="Défaite !";
+    public End(String start, String prompt) {
+        this.prompt=prompt;
         this.start=start;
         build();
     }
