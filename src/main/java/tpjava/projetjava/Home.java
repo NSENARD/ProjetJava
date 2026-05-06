@@ -42,7 +42,6 @@ public final class Home extends JFrame{
         scenario=new Scenario(scenarioFile);
         FileNameNotFound=false;
         ChangePuzzle(scenario.getCurrentPuzzle());
-        this.setVisible(true);
         }
         catch(Exception e){
             if(!"Recherche annulée".equals(e.getMessage())){

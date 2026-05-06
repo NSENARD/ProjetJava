@@ -117,8 +117,7 @@ public class Scenario {
             catch (Exception e) {
             throw e;
         }
-        
-    
+
 }
    
     public void StructureErrorDetector(File f) throws Exception{
@@ -130,10 +129,14 @@ public class Scenario {
         TestQcmChoices();
     }
     private void TestPuzzleBodies() throws Exception{
-            for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleBodies.entrySet()){
+        for (Map.Entry<String, HashMap<String,String>> puzzle : PuzzleBodies.entrySet()){
             if(!puzzle.getValue().containsKey("image")){
                 throw new Exception(puzzle.getKey()+"n'a pas d'image");
             }
+            File image=new File(nomDossier+puzzle.getValue().get("image"));
+                if (!image.exists()){
+                    throw new Exception(image.getPath()+ "  introuvable");
+                }
             if(!puzzle.getValue().containsKey("prompt")){
                 throw new Exception(puzzle.getKey()+" n'a pas de prompt");
             }
