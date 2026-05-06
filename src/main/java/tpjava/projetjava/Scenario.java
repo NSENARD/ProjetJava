@@ -133,7 +133,7 @@ public class Scenario {
             if(!puzzle.getValue().containsKey("image")){
                 throw new Exception(puzzle.getKey()+"n'a pas d'image");
             }
-            File image=new File(nomDossier+puzzle.getValue().get("image"));
+            File image=new File(nomDossier+"/"+puzzle.getValue().get("image"));
                 if (!image.exists()){
                     throw new Exception(image.getPath()+ "  introuvable");
                 }
